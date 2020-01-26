@@ -256,6 +256,50 @@ class ResourceHelper
         return $dstResource;
     }
 
+ /**
+     * @param  resource $srcResource
+     * @param  int      $x
+     * @param  int      $y
+     * @param  int      $resizeWidth
+     * @param  int      $resizeHeight
+     * @param  string   $resizeOption
+     * @param  bool     $resample
+     * @return resource
+     */
+    public function getCropGdResource(
+        $srcResource,
+        $x,
+        $y,
+        $resizeWidth,
+        $resizeHeight
+    ) {
+        $originalWidth = imagesx($srcResource);
+        $originalHeight = imagesy($srcResource);
+        $args = [
+            'dst_x' => $x, 'dst_y' => $y, 'dst_w' => $resizeWidth, 'dst_h' => $resizeHeight,
+            'src_x' => 0, 'src_y' => 0, 'src_w' => $originalWidth, 'src_h' => $originalHeight,
+        ];
+
+        $dstResource = $this->getEmptyGdResource($args['dst_w'], $args['dst_h']);
+
+        if ($resample) {
+            imagecopyresampled(
+                $dstResource, $srcResource,
+                $args['dst_x'], $args['dst_y'], $args['src_x'], $args['src_y'],
+                $args['dst_w'], $args['dst_h'], $args['src_w'], $args['src_h']
+            );
+        } else {
+            imagecopyresized(
+                $dstResource, $srcResource,
+                $args['dst_x'], $args['dst_y'], $args['src_x'], $args['src_y'],
+                $args['dst_w'], $args['dst_h'], $args['src_w'], $args['src_h']
+            );
+        }
+        imagedestroy($srcResource);
+
+        return $dstResource;
+    }
+
     /**
      * @param  resource $dstResource
      * @param  resource $srcResource

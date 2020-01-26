@@ -105,6 +105,14 @@ class ImageFactory
             );
         } elseif ($layer instanceof BackgroundLayerInterface && $layer->get('image.format') === PhpGdContext::FORMAT_PNG) {
             $resource = $this->rh->getClonedGdResource($resource);
+        } elseif ($layer->has('image.crop.x')) {
+            $resource =  $this->rh->getCropGdResource(
+                $resource,
+                $layer->get('image.crop.x'),
+                $layer->get('image.crop.y'),
+                $layer->get('image.crop.width'),
+                $layer->get('image.crop.height'),
+            );
         }
 
         $layer->set('final.resource', $resource);

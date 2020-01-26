@@ -69,4 +69,13 @@ class ImageLayer extends AbstractLayer implements ImageLayerInterface
 
         return $this;
     }
+
+    public function crop($x, $y, $width, $height){
+        $this->add([
+            'image.crop.x' => $x,
+            'image.crop.y' => $y,
+            'image.crop.width' => $width,
+            'image.crop.height' => $height,
+        ])
+    }
 }
