@@ -76,6 +76,8 @@ class ImageLayer extends AbstractLayer implements ImageLayerInterface
             'image.crop.y' => $y,
             'image.crop.width' => $width,
             'image.crop.height' => $height,
-        ])
+        ]);
+
+        return $this;
     }
 }
