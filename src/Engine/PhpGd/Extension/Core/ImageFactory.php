@@ -111,7 +111,7 @@ class ImageFactory
                 $layer->get('image.crop.x'),
                 $layer->get('image.crop.y'),
                 $layer->get('image.crop.width'),
-                $layer->get('image.crop.height'),
+                $layer->get('image.crop.height')
             );
         }
 
